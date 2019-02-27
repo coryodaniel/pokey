@@ -1,4 +1,4 @@
-FROM curl
+FROM byrnedo/alpine-curl
 
 WORKDIR /app
 COPY ./entrypoint.sh .
