@@ -1,6 +1,6 @@
 workflow "main" {
   on = "push"
-  resolves = ["docker run", "inspect"]
+  resolves = ["docker run", "network"]
 }
 
 ### Build and say hi
@@ -23,20 +23,20 @@ action "network" {
   args = "network create --subnet=192.168.0.0/16 --gateway=192.168.0.100 --ip-range=192.168.1.0/24 --driver bridge my_bridge"
 }
 
-actions "postgres" {
-  uses = "actions/docker/cli@master"
-  needs = ["network"]
-  args = "run --net=my_bridge --name=my_psql_db postgres --ip=192.168.1.5"
-}
+// actions "postgres" {
+//   uses = "actions/docker/cli@master"
+//   needs = ["network"]
+//   args = "run --net=my_bridge --name=my_psql_db postgres --ip=192.168.1.5"
+// }
 
-actions "network ls" {
-  uses = "actions/docker/cli@master"
-  needs = ["network"]
-  args = "network ls"
-}
+// actions "network ls" {
+//   uses = "actions/docker/cli@master"
+//   needs = ["network"]
+//   args = "network ls"
+// }
 
-actions "inspect" {
-  uses = "actions/docker/cli@master"
-  needs = ["postgres", "network ls"]
-  args = "network inspect my_bridge"
-}
+// actions "inspect" {
+//   uses = "actions/docker/cli@master"
+//   needs = ["postgres", "network ls"]
+//   args = "network inspect my_bridge"
+// }
