@@ -1,4 +1,4 @@
 #! /bin/sh
 
 /sbin/ifconfig
-hostname -I
+hostname -i
