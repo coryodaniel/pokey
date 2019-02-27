@@ -1,7 +1,9 @@
 workflow "main" {
   on = "push"
-  resolves = ["docker run", "docker scan"]
+  resolves = ["docker run", "inspect"]
 }
+
+### Build and say hi
 
 action "docker build" {
   uses = "actions/docker/cli@master"
@@ -14,7 +16,22 @@ action "docker run" {
   args = "run pokey:latest"
 }
 
-action "docker scan" {
+
+### build a network and connect nodes?
+
+action "network" {
   uses = "actions/docker/cli@master"
-  args = "run uzyexe/nmap -sP 172.21.0.0/16"
+  args = "network create --driver bridge my_bridge"
+}
+
+actions "postgres" {
+  uses = "actions/docker/cli@master"
+  needs = ["network"]
+  args = "run --net=my_bridge --name=my_psql_db postgres"
+}
+
+actions "inspect" {
+  uses = "actions/docker/cli@master"
+  needs = ["postgres"]
+  args = "network inspect my_bridge"
 }

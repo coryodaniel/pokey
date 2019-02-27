@@ -1,4 +1,3 @@
 #! /bin/sh
 
-/sbin/ifconfig
-hostname -i
+echo "Hello, World!"
