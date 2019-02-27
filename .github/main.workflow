@@ -30,8 +30,14 @@ actions "postgres" {
   args = "run --net=my_bridge --name=my_psql_db postgres"
 }
 
+actions "network ls" {
+  uses = "actions/docker/cli@master"
+  needs = ["network"]
+  args = "network ls"
+}
+
 actions "inspect" {
   uses = "actions/docker/cli@master"
-  needs = ["postgres"]
+  needs = ["postgres", "network ls"]
   args = "network inspect my_bridge"
 }
