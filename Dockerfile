@@ -1,4 +1,4 @@
-FROM alpine
+FROM curl
 
 WORKDIR /app
 COPY ./entrypoint.sh .
